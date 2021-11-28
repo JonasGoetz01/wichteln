@@ -1,5 +1,5 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const http = require("http");
@@ -22,10 +22,10 @@ app.use(express.json()); // New
 app.use('/static', express.static('public'));
 
 // Templating Engine
-app.engine('hbs', exphbs( {extname: '.hbs' }));
-app.set('view engine', 'hbs'); 
+app.engine('handlebars', engine( {extname: '.hbs' }));
+app.set('view engine', 'handlebars'); 
 
-const routes = require('./server/routes/user');
+const routes = require('./server/routes/routes');
 app.use('/', routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
