@@ -1,0 +1,61 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Drinkmanagement</li>
+  </ol>
+</nav>
+
+{{#if removedDrink}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  Drink has been removed.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+<div class="row">
+  <div class="col-6">
+    <h1>Drinks</h1>
+  </div>
+  <div class="col-6 d-flex justify-content-end">
+    <a href="/admin/drinkmanagement/adddrink" type="button" class="btn btn-primary align-self-center">+ add drink</a>
+  </div>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price_Buy</th>
+      <th scope="col">Price_Intern</th>
+      <th scope="col">Price_Extern</th>
+      <th scope="col">Box_Size</th>
+      <th scope="col">Stock</th>
+      <th scope="col" class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each rows}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.brand}}</td>
+      <td>{{this.price_buy}}€</td>
+      <td>{{this.price_intern}}€</td>
+      <td>{{this.price_extern}}€</td>
+      <td>{{this.box_size}} Stk.</td>
+      <td>{{this.stock}} Stk.</td>
+      <td class="text-end">
+        <a href="/admin/drinkmanagement/viewdrink/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i> View</a>
+        <a href="/admin/drinkmanagement/editdrink/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>
+          Edit</a>
+        <a href="/admin/drinkmanagement/{{this.id}}" type="button" class="btn btn-light btn-small" style="color:red;"><i class="bi bi-person-x"></i> Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>

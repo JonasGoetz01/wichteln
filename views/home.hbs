@@ -1,0 +1,29 @@
+<h1>Home</h1>
+
+{{#if buchungsNotification}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{buchungsNotification}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#if sellNotification}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{sellNotification}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#if sellNotificationAll}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{sellNotificationAll}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+
+{{#each rows}}
+    <button type="button" class="btn btn-primary btn-lg" style="height: 200px; width: 200px; margin-bottom: 5px;" onclick="window.location.href='/sale/{{this.id}}'"><p>{{this.last_name}},
+        {{this.first_name}}</p>
+    <h2>#{{this.id}}</h2></button>
+{{/each}}

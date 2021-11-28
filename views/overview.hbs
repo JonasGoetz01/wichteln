@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Übersicht</li>
+  </ol>
+</nav>
+
+{{#if sales}}
+<div class="row">
+  <div class="col-6">
+    <h1>Noch offen: {{sales.[0].total_cost}}€</h1>
+  </div>
+  <div class="col-6 d-flex justify-content-end">
+    <a href="/payall/{{sales.[0].user_id}}" type="button" class="btn btn-primary align-self-center">Pay all</a>
+  </div>
+</div>
+{{else}}
+  <h1>Nix mehr zu bezahlen</h1>
+{{/if}}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Drink</th>
+      <th scope="col">Marke</th>
+      <th scope="col">Price</th>
+      <th scope="col">Date</th>
+      <th scope="col" class="text-end">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each sales}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.drink_name}}</td>
+      <td>{{this.drink_brand}}</td>
+      <td>{{this.price}}€</td>
+      <td>{{this.timestamp}}</td>
+      <td class="text-end">
+        <a href="/pay/{{this.user_id}}/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-cash"></i> Bezahlen</a>
+      </td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>

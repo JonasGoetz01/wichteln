@@ -1,0 +1,80 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+.btn, .btn-primary, .btn-lg {
+    background-color: rgba(255, 255, 255, 15%);
+    border-color: rgba(255, 255, 255, 15%);
+    transition-duration: 100ms;
+}
+
+.btn:hover, .btn-primary:hover, .btn-lg:hover, .btn:focus, .btn-primary:focus, .btn-lg:focus{
+    background-color: rgba(255, 255, 255, 20%);
+    border-color: rgba(255, 255, 255, 20%);
+}
+
+h2 {
+    background-image:linear-gradient(45deg, aqua, rgba(66, 103, 216, 0.726));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+}
+
+h1 {
+    background-image:linear-gradient(45deg, aqua, rgba(66, 103, 216, 0.726));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 40px;
+    background-image:linear-gradient(45deg, aqua, rgba(66, 103, 216, 0.726));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+th, td {
+    color: white;
+}
+
+img {
+    width: 75px;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 20%);
+    border-color: rgba(255, 255, 255, 30%);
+    color: white;
+}
+
+.form-control:hover, .form-control:focus, .form-control:active, .form-control:active {
+    background-color: rgba(255, 255, 255, 30%);
+    border-color: rgba(255, 255, 255, 30%);
+    color: white;
+}
+
+.drink {
+    font-size: 25px;
+}
+
+.table {
+    background-color: rgba(255, 255, 255, 10%);
+}
+
+.btn, .btn-light, .btn-small {
+    color: white;
+    font-weight: bold;
+    background-color: rgb(20,20,20);
+}
+
+tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 13%);
+}
+
+thead {
+    background-color: black;
+}
