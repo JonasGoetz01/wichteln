@@ -5,8 +5,8 @@ const controller = require('../controllers/controller');
 // Routes
 router.get('/', controller.home);
 
-router.get('/usermanagement/', controller.viewuser);
-router.post('/usermanagement/', controller.finduser);
+router.get('/wichteln/usermanagement/', controller.viewuser);
+router.post('/wichteln/usermanagement/', controller.finduser);
 router.get('/usermanagement/adduser', controller.formuser);
 router.post('/usermanagement/adduser', controller.createuser);
 router.get('/usermanagement/edituser/:id', controller.edituser);
