@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/wichteln/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Usermanagement</li>
   </ol>
 </nav>
@@ -17,7 +17,7 @@
     <h1>Users</h1>
   </div>
   <div class="col-6 d-flex justify-content-end">
-    <a href="/usermanagement/adduser" type="button" class="btn btn-primary align-self-center">+ add user</a>
+    <a href="/wichteln/usermanagement/adduser" type="button" class="btn btn-primary align-self-center">+ add user</a>
   </div>
 </div>
 
@@ -42,10 +42,10 @@
       <td>{{this.sclass}}</td>
       <td>{{this.sex}}</td>
       <td class="text-end">
-        <a href="/usermanagement/viewuser/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i> View</a>
-        <a href="/usermanagement/edituser/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>
+        <a href="/wichteln/usermanagement/viewuser/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i> View</a>
+        <a href="/wichteln/usermanagement/edituser/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>
           Edit</a>
-        <a href="/usermanagement/{{this.id}}" type="button" class="btn btn-light btn-small" style="color:red;"><i class="bi bi-person-x"></i> Delete</a>
+        <a href="/wichteln/usermanagement/{{this.id}}" type="button" class="btn btn-light btn-small" style="color:red;"><i class="bi bi-person-x"></i> Delete</a>
       </td>
     </tr>
     {{/each}}

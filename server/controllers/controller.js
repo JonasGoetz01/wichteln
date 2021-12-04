@@ -182,3 +182,27 @@ exports.viewalluser = (req, res) => {
     }
   });
 }
+
+function randomNumber(min, max) { 
+  return Math.random() * (max - min) + min;
+} 
+
+var assignments = [];
+exports.makeAssignments = (req, res) => {
+  connection.query('SELECT * FROM users', (err, rows) => {
+    if (!err) {
+      var schenker = rows;
+      var beschenkter = rows;
+      while(schenker.length > 1){
+        var random = randomNumber(1, schenker.length);
+        assignments.push([[schenker[0]["id"]], [beschenkter[1]["id"]]]);
+        schenker.splice(0, 1);
+        beschenkter.splice(0, 1);
+      }
+      console.log(assignments);
+      res.render('home')
+    } else {
+      console.log(err);
+    }
+  });
+}
