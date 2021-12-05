@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 // Connection Pool
 let connection = mysql.createConnection({
-  host: "server.goetz01.de",
+  host: "136.243.152.18",
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
