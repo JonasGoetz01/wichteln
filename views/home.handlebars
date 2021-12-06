@@ -1,6 +1,8 @@
 <h1>Home</h1>
-
-<table class="table">
+<a href="/wichteln/makeassignment/{{this.id}}" type="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Neue Zuordnung erstellen</a>
+<a href="/wichteln/deleteassignment/{{this.id}}" type="button" class="btn btn-light btn-small" style="color:red;"><i class="bi bi-person-x"></i> Zuordnung Löschen</a>
+<br>
+<table class="table" style="margin-top: 5px;">
   <thead class="thead-dark">
     <tr>
         <th scope="col">Schenker</th>
@@ -13,7 +15,7 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
-        <th scope="col" class="text-end"></th>
+        <th scope="col" class="text-end"></th> 
     </tr>
     <tr>
       <th scope="col">#</th>

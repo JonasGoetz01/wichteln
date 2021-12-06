@@ -189,6 +189,16 @@ exports.viewalluser = (req, res) => {
   });
 }
 
+exports.deleteAssignment = (req, res) => {
+  connection.query('DELETE FROM assignments', (err, rows) => {
+    if (!err) {
+      res.render('home');
+    } else {
+      console.log(err);
+    }
+  });
+}
+
 /**
  * Shuffles the array using the Fisher Yates Shuffle Algorithm
  * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -242,7 +252,4 @@ exports.makeAssignments = (req, res) => {
       console.log(err);
     }
   });
-
-
-  //SELECT quote FROM quotes ORDER BY RAND()
 }
