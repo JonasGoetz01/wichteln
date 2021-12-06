@@ -183,24 +183,32 @@ exports.viewalluser = (req, res) => {
   });
 }
 
-function randomNumber(min, max) { 
-  return Math.random() * (max - min) + min;
-} 
+/**
+ * Shuffles the array using the Fisher Yates Shuffle Algorithm
+ * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ */
+function shuffle(array) {
+  let counter = array.length;
+  // While there are elements in the array
+  while (counter > 0) {
+    // Pick a random index
+    let index = Math.floor(Math.random() * counter);
+    // Decrease counter by 1
+    counter--;
+    // And swap the last element with it
+    let temp = array[counter];
+    array[counter] = array[index];
+    array[index] = temp;
+  }
+  return array;
+}
 
 var assignments = [];
 exports.makeAssignments = (req, res) => {
-  connection.query('SELECT * FROM users', (err, rows) => {
+  connection.query('SELECT * FROM users', (err, users) => {
     if (!err) {
-      var schenker = rows;
-      var beschenkter = rows;
-      while(schenker.length > 1){
-        var random = randomNumber(1, schenker.length);
-        assignments.push([[schenker[0]["id"]], [beschenkter[1]["id"]]]);
-        schenker.splice(0, 1);
-        beschenkter.splice(0, 1);
-      }
-      console.log(assignments);
-      res.render('home')
+      users = shuffle(users)
+      res.render('home', { users })
     } else {
       console.log(err);
     }
