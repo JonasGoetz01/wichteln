@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const async = require('async');
 
 // Connection Pool
 let connection = mysql.createConnection({
