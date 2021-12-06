@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const async = require('async');
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -20,17 +21,22 @@ let connection = mysql.createConnection({
  * @param {*} res 
  */
 exports.home = (req, res) => {
-/*   connection.query('SELECT * FROM user WHERE status = "active "', (err, rows) => {
+  connection.query('SELECT * FROM assignments', (err, users) => {
     if (!err) {
-      let sellNotification = req.query.notification;
-      let sellNotificationAll = req.query.notificationAll;
-      let buchungsNotification = req.query.buchung;
-      res.render('home', { rows, sellNotification, sellNotificationAll, buchungsNotification });
-    } else {
+      for(let i = 0; i < users.length; i++){
+        if((i + 1) < users.length){
+          users[i][0] = users[i];
+          users[i][1] = users[i + 1]
+        }else{
+          users[i][0] = users[i];
+          users[i][1] = users[0]
+        }
+      }
+      res.render('home', { users })
+    }else{
       console.log(err);
     }
-  }); */
-  res.render('home')
+  });
 }
 
 /* ----------------------------------------------------User-section---------------------------------------------------------------------- */
@@ -203,23 +209,40 @@ function shuffle(array) {
   return array;
 }
 
-var assignments = [];
 exports.makeAssignments = (req, res) => {
+  connection.query('DELETE FROM assignments', (err, rows) =>{
+    if(err){
+      console.log(err);
+    }
+  });
   connection.query('SELECT * FROM users', (err, users) => {
     if (!err) {
       users = shuffle(users)
-      for(let i = 0; i < users.length; i++){
-        if((i + 1) < users.length){
-          users[i][0] = users[i];
-          users[i][1] = users[i + 1]
-        }else{
-          users[i][0] = users[i];
-          users[i][1] = users[0]
-        }
-      }
-      res.render('home', { users })
+      async.each(users, function (user, callback) {
+        connection.query('INSERT INTO assignments SET id = ?, name = ?, age = ?, sclass = ?, sex = ?', [user.id, user.name, user.age, user.sclass, user.sex], callback);
+        }, function () {
+          connection.query('SELECT * FROM assignments', (err, users) => {
+            if (!err) {
+              for(let i = 0; i < users.length; i++){
+                if((i + 1) < users.length){
+                  users[i][0] = users[i];
+                  users[i][1] = users[i + 1]
+                }else{
+                  users[i][0] = users[i];
+                  users[i][1] = users[0]
+                }
+              }
+              res.render('home', { users })
+            }else{
+              console.log(err);
+            }
+          });
+      })
     } else {
       console.log(err);
     }
   });
+
+
+  //SELECT quote FROM quotes ORDER BY RAND()
 }
