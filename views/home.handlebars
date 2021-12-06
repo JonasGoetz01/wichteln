@@ -1,1 +1,51 @@
 <h1>Home</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+        <th scope="col">Schenker</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">Beschenkter</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col" class="text-end"></th>
+    </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Alter</th>
+      <th scope="col">Klasse</th>
+      <th scope="col">Geschlecht</th>
+      <th scope="col"> </th>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Alter</th>
+      <th scope="col">Klasse</th>
+      <th scope="col" class="text-end">Geschlecht</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each users}}
+    <tr>
+      <th scope="row">{{this.0.id}}</th>
+      <td>{{this.0.name}}</td>
+      <td>{{this.0.age}}</td>
+      <td>{{this.0.sclass}}</td>
+      <td>{{this.0.sex}}</td>
+      <td></td>
+      <th scope="row">{{this.1.id}}</th>
+      <td>{{this.1.name}}</td>
+      <td>{{this.1.age}}</td>
+      <td>{{this.1.sclass}}</td>
+      <td>{{this.1.sex}}</td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>
