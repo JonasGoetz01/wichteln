@@ -208,6 +208,15 @@ exports.makeAssignments = (req, res) => {
   connection.query('SELECT * FROM users', (err, users) => {
     if (!err) {
       users = shuffle(users)
+      for(let i = 0; i < users-length; i++){
+        if((i + 1) < users-length){
+          users[i][0] = users[i];
+          users[i][1] = users[i + 1]
+        }else{
+          users[i][0] = users[i];
+          users[i][1] = users[0]
+        }
+      }
       res.render('home', { users })
     } else {
       console.log(err);
