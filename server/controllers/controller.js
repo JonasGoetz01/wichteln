@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const async = require('async');
+const puppeteer = require("puppeteer");
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -252,4 +253,26 @@ exports.makeAssignments = (req, res) => {
       console.log(err);
     }
   });
+}
+
+exports.createpdf = (req, res) => {
+  (async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto("http://localhost:5000/wichteln/", {
+      waitUntil: "networkidle2"
+    });
+    await page.setViewport({ width: 1080, height: 1920 });
+    await page.pdf({
+      path: "zuordnung.pdf",
+      format: "A1",
+      printBackground: true,
+      margin: {
+        left: '1px',
+        right: '1px'
+      }
+    });
+    await browser.close();
+  })();
+  res.render('home');
 }

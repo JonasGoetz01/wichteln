@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^6.0.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "puppeteer": "^2.0.0"
   }
 }
