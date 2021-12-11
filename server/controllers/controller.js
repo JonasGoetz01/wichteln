@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const async = require('async');
 const puppeteer = require("puppeteer");
+const uuid = require('uuid');
 
 // Connection Pool
 let connection = mysql.createConnection({
