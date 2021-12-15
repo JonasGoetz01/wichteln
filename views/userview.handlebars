@@ -1,0 +1,31 @@
+<div class="card" style="width: 100%; background-color: rgba(255, 255, 255, 15%); text-align: center;">
+  <div class="card-body">
+    <h3 class="card-title" style="color: White;">Info</h3>
+    <h4 class="card-text" style="color: White;">Super, Du hast deinen Code erfolgreich gescannt.<br>Hier findest Du alle Infos zu deinem Wichtelpartner.<br>Brei Fragen melde Dich bitte beim Wichtelteam</h4>
+  </div>
+</div>
+
+<div class="view-user p-5">
+  {{#if user}}
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Alter</th>
+            <th scope="col">Geschlecht</th>
+            <th scope="col">uuid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">{{user.age}}</td>
+            <td>{{user.sex}}</td>
+            <td>{{user.uuid}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {{/if}}
+</div>

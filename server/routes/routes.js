@@ -4,6 +4,8 @@ const controller = require('../controllers/controller');
 
 router.get('/wichteln/', controller.home);
 
+router.get('/wichteln/userview/:uuid', controller.userview);
+//router.get('/wichteln/pdf/', controller.createpdf);
 router.get('/wichteln/createuuid/', controller.createuuid);
 router.get('/wichteln/makeassignment/', controller.makeAssignments);
 router.get('/wichteln/createpdf/', controller.createpdf);

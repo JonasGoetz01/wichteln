@@ -2,6 +2,12 @@ const mysql = require('mysql');
 const async = require('async');
 const puppeteer = require("puppeteer");
 const uuid = require('uuid');
+const fs = require('fs-extra');
+const hbs = require('handlebars');
+const path = require('path');
+const moment = require('moment');
+const { compileFunction } = require('vm');
+const asyncHandler = require('express-async-handler')
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -114,6 +120,36 @@ exports.createuser = (req, res) => {
   });
 }
 
+/* const compile = async function(templateName, data) {
+  const filePath = path.join(process.cwg(), 'templates', `${templateName}.hbs`);
+  const html = await fs.readFile(filePath, 'utf-8')
+  return hbs.compile(html)(data);
+}
+
+exports.createpdf = async (req, res) => {
+  try {
+    const browser = puppeteer.launch()
+    const page = browser.newPage()
+    connection.query('SELECT * FROM users', async(err, rows) => {
+      if(!err){
+        console.log('jo')
+        const content = await compileFunction('zuordnung', rows)
+        await page.setContent(content)
+        await page.emulateMedia('screen')
+        await page.pdf({
+          path: 'mydpf.pdf',
+          format: 'A4',
+          printBackground: true
+        })
+      }else{
+        console.log(err)
+      }
+    });
+  }catch(err){
+    console.log(err);
+  }
+} */
+
 exports.createuuid = (req, res) => {
   connection.query('SELECT * FROM users', (err, rows) => {
     if (!err) {
@@ -131,6 +167,26 @@ exports.createuuid = (req, res) => {
       console.log(err);
     }
   });
+}
+
+exports.userview = (req,res) => {
+  connection.query('SELECT * FROM assignments', (err, rows) => {
+    if(!err){
+      const user_uuid = req.params.uuid
+      for(var i = 0; i < rows.length; i++){
+        if(rows[i].uuid == user_uuid){
+          if(i + 1 < rows.length){
+            var user = rows[i + 1]
+          }else{
+            var user = rows[0]
+          }
+          res.render('userview', { user });
+        }
+      }
+    }else{
+      console.log(err)
+    }
+  })
 }
 
 /**
@@ -251,7 +307,7 @@ exports.makeAssignments = (req, res) => {
     if (!err) {
       users = shuffle(users)
       async.each(users, function (user, callback) {
-        connection.query('INSERT INTO assignments SET id = ?, name = ?, age = ?, sclass = ?, sex = ?', [user.id, user.name, user.age, user.sclass, user.sex], callback);
+        connection.query('INSERT INTO assignments SET id = ?, name = ?, age = ?, sclass = ?, sex = ?, uuid = ?', [user.id, user.name, user.age, user.sclass, user.sex, user.uuid], callback);
         }, function () {
           connection.query('SELECT * FROM assignments', (err, users) => {
             if (!err) {
