@@ -1,8 +1,11 @@
 const mysql = require('mysql');
+const async = require('async');
+const puppeteer = require("puppeteer");
+const uuid = require('uuid');
 
 // Connection Pool
 let connection = mysql.createConnection({
-  host: "136.243.152.18",
+  host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
@@ -20,17 +23,22 @@ let connection = mysql.createConnection({
  * @param {*} res 
  */
 exports.home = (req, res) => {
-/*   connection.query('SELECT * FROM user WHERE status = "active "', (err, rows) => {
+  connection.query('SELECT * FROM assignments', (err, users) => {
     if (!err) {
-      let sellNotification = req.query.notification;
-      let sellNotificationAll = req.query.notificationAll;
-      let buchungsNotification = req.query.buchung;
-      res.render('home', { rows, sellNotification, sellNotificationAll, buchungsNotification });
-    } else {
+      for(let i = 0; i < users.length; i++){
+        if((i + 1) < users.length){
+          users[i][0] = users[i];
+          users[i][1] = users[i + 1]
+        }else{
+          users[i][0] = users[i];
+          users[i][1] = users[0]
+        }
+      }
+      res.render('home', { users })
+    }else{
       console.log(err);
     }
-  }); */
-  res.render('home')
+  });
 }
 
 /* ----------------------------------------------------User-section---------------------------------------------------------------------- */
@@ -183,26 +191,89 @@ exports.viewalluser = (req, res) => {
   });
 }
 
-function randomNumber(min, max) { 
-  return Math.random() * (max - min) + min;
-} 
-
-var assignments = [];
-exports.makeAssignments = (req, res) => {
-  connection.query('SELECT * FROM users', (err, rows) => {
+exports.deleteAssignment = (req, res) => {
+  connection.query('DELETE FROM assignments', (err, rows) => {
     if (!err) {
-      var schenker = rows;
-      var beschenkter = rows;
-      while(schenker.length > 1){
-        var random = randomNumber(1, schenker.length);
-        assignments.push([[schenker[0]["id"]], [beschenkter[1]["id"]]]);
-        schenker.splice(0, 1);
-        beschenkter.splice(0, 1);
-      }
-      console.log(assignments);
-      res.render('home')
+      res.render('home');
     } else {
       console.log(err);
     }
   });
+}
+
+/**
+ * Shuffles the array using the Fisher Yates Shuffle Algorithm
+ * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ */
+function shuffle(array) {
+  let counter = array.length;
+  // While there are elements in the array
+  while (counter > 0) {
+    // Pick a random index
+    let index = Math.floor(Math.random() * counter);
+    // Decrease counter by 1
+    counter--;
+    // And swap the last element with it
+    let temp = array[counter];
+    array[counter] = array[index];
+    array[index] = temp;
+  }
+  return array;
+}
+
+exports.makeAssignments = (req, res) => {
+  connection.query('DELETE FROM assignments', (err, rows) =>{
+    if(err){
+      console.log(err);
+    }
+  });
+  connection.query('SELECT * FROM users', (err, users) => {
+    if (!err) {
+      users = shuffle(users)
+      async.each(users, function (user, callback) {
+        connection.query('INSERT INTO assignments SET id = ?, name = ?, age = ?, sclass = ?, sex = ?', [user.id, user.name, user.age, user.sclass, user.sex], callback);
+        }, function () {
+          connection.query('SELECT * FROM assignments', (err, users) => {
+            if (!err) {
+              for(let i = 0; i < users.length; i++){
+                if((i + 1) < users.length){
+                  users[i][0] = users[i];
+                  users[i][1] = users[i + 1]
+                }else{
+                  users[i][0] = users[i];
+                  users[i][1] = users[0]
+                }
+              }
+              res.render('home', { users })
+            }else{
+              console.log(err);
+            }
+          });
+      })
+    } else {
+      console.log(err);
+    }
+  });
+}
+
+exports.createpdf = (req, res) => {
+  (async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto("http://localhost:5000/wichteln/", {
+      waitUntil: "networkidle2"
+    });
+    await page.setViewport({ width: 1080, height: 1920 });
+    await page.pdf({
+      path: "zuordnung.pdf",
+      format: "A1",
+      printBackground: true,
+      margin: {
+        left: '1px',
+        right: '1px'
+      }
+    });
+    await browser.close();
+  })();
+  res.render('home');
 }

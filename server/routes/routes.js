@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/controller');
 
-router.get('/', controller.home);
+router.get('/wichteln/', controller.home);
 
-router.get('/wichteln/', controller.makeAssignments);
+router.get('/wichteln/makeassignment/', controller.makeAssignments);
+router.get('/wichteln/createpdf/', controller.createpdf);
+router.get('/wichteln/deleteassignment/', controller.deleteAssignment);
 router.get('/wichteln/usermanagement/', controller.viewuser);
 router.post('/wichteln/usermanagement/', controller.finduser);
 router.get('/wichteln/usermanagement/adduser', controller.formuser);
