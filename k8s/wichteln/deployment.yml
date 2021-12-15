@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wichteln-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wichteln
+  template:
+    metadata:
+      labels:
+        app: wichteln
+    spec:
+      containers:
+      - image: jonasgoetz01/website:V1.0
+        name: wichteln-container
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - >-
+              apt update &&
+              cd workspace && 
+              git clone https://github.com/JonasGoetz01/wichteln.git wichteln && 
+              cd wichteln && 
+              touch .env && 
+              echo "DB_HOST = server.goetz01.de" >> .env && 
+              echo "DB_NAME = wichteln" >> .env && 
+              echo "DB_USER = jonas" >> .env && 
+              echo -n "DB_PASS = Toremilolars01%" >> .env &&
+              echo -n "$" >> .env &&
+              echo "01" >> .env &&
+              apt update &&
+              npm install &&
+              npm start
