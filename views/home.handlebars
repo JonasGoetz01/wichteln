@@ -11,7 +11,9 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
+        <th scope="col"></th>
         <th scope="col">Beschenkter</th>
+        <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -23,12 +25,14 @@
       <th scope="col">Alter</th>
       <th scope="col">Klasse</th>
       <th scope="col">Geschlecht</th>
+      <th scope="col">QR</th>
       <th scope="col"> </th>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Alter</th>
       <th scope="col">Klasse</th>
-      <th scope="col" class="text-end">Geschlecht</th>
+      <th scope="col">Geschlecht</th>
+      <th scope="col" class="text-end">QR</th>
     </tr>
   </thead>
   <tbody>
@@ -40,12 +44,14 @@
       <td>{{this.0.age}}</td>
       <td>{{this.0.sclass}}</td>
       <td>{{this.0.sex}}</td>
+      <td><img src="{{{this.qr}}}" alt="QR-Code"></td>
       <td></td>
       <th scope="row">{{this.1.id}}</th>
       <td>{{this.1.name}}</td>
       <td>{{this.1.age}}</td>
       <td>{{this.1.sclass}}</td>
       <td>{{this.1.sex}}</td>
+      <td><img src="{{{this.1.qr}}}" alt="QR-Code"></td>
     </tr>
     {{/each}}
 

@@ -8,6 +8,7 @@ const path = require('path');
 const moment = require('moment');
 const { compileFunction } = require('vm');
 const asyncHandler = require('express-async-handler')
+const QRCode = require('qrcode')
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -16,6 +17,14 @@ let connection = mysql.createConnection({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 });
+
+
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
 
 
 
@@ -29,7 +38,17 @@ let connection = mysql.createConnection({
  * @param {*} res 
  */
 exports.home = (req, res) => {
-  connection.query('SELECT * FROM assignments', (err, users) => {
+  connection.query('SELECT * FROM assignments', async(err, users) => {
+    const opts = {
+      errorCorrectionLevel: 'H',
+      type: 'image/png',
+      quality: 0.95,
+      margin: 1,
+      color: {
+       dark: '#208698',
+       light: '#FFF',
+      },
+     }
     if (!err) {
       for(let i = 0; i < users.length; i++){
         if((i + 1) < users.length){
@@ -39,6 +58,10 @@ exports.home = (req, res) => {
           users[i][0] = users[i];
           users[i][1] = users[0]
         }
+      }
+      for(var i = 0; i < users.length; i++){
+        console.log(await QRCode.toString('http://192.168.0.180:5000/wichteln/userview/' + users[i].uuid))
+        users[i].qr = await QRCode.toString('http://192.168.0.180:5000/wichteln/userview/' + users[i].uuid)
       }
       res.render('home', { users })
     }else{
