@@ -42,7 +42,9 @@ th, td {
 }
 
 img {
-    width: 75px;
+    width: 55px;
+    border-radius: 4px;
+    margin-right: 10px;
 }
 
 .form-control {
