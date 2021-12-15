@@ -103,10 +103,30 @@ exports.formuser = (req, res) => {
 exports.createuser = (req, res) => {
   const { name, age, sclass, sex } = req.body;
   let searchTerm = req.body.search;
-  connection.query('INSERT INTO users SET name = ?, age = ?, sclass = ?, sex = ?', 
-  [name, age, sclass, sex], (err, rows) => {
+  var user_uuid = uuid.v4();
+  connection.query('INSERT INTO users SET name = ?, age = ?, sclass = ?, sex = ?, uuid = ?', 
+  [name, age, sclass, sex, user_uuid], (err, rows) => {
     if (!err) {
       res.render('add-user', { alert: 'User added successfully.' });
+    } else {
+      console.log(err);
+    }
+  });
+}
+
+exports.createuuid = (req, res) => {
+  connection.query('SELECT * FROM users', (err, rows) => {
+    if (!err) {
+      for(var i = 0; i < rows.length; i++){
+        if(rows[i].uuid == ""){
+          connection.query('UPDATE users SET uuid = ? WHERE id = ?', [uuid.v4(), rows[i].id], (err, rows) => {
+            if(err){
+              console.log(err);
+            }
+            console.log("uuid added");
+          });
+        }
+      }
     } else {
       console.log(err);
     }
