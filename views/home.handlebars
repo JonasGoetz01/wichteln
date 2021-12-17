@@ -44,14 +44,14 @@
       <td>{{this.0.age}}</td>
       <td>{{this.0.sclass}}</td>
       <td>{{this.0.sex}}</td>
-      <td><img src="{{{this.qr}}}" alt="QR-Code"></td>
+      <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:5000/wichteln/userview/{{this.uuid}}" alt="QR-Code"></td>
       <td></td>
       <th scope="row">{{this.1.id}}</th>
       <td>{{this.1.name}}</td>
       <td>{{this.1.age}}</td>
       <td>{{this.1.sclass}}</td>
       <td>{{this.1.sex}}</td>
-      <td><img src="{{{this.1.qr}}}" alt="QR-Code"></td>
+      <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:5000/wichteln/userview/{{this.1.uuid}}" alt="QR-Code"></td>
     </tr>
     {{/each}}
 

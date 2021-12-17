@@ -23,6 +23,7 @@
             <th scope="col">Klasse</th>
             <th scope="col">Geschlecht</th>
             <th scope="col">uuid</th>
+            <th scope="col">QR</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
             <td>{{this.sclass}}</td>
             <td>{{this.sex}}</td>
             <td>{{this.uuid}}</td>
+            <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:5000/wichteln/userview/{{this.uuid}}" alt="QR-Code"></td>
           </tr>
         </tbody>
       </table>

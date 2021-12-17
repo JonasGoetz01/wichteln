@@ -14,14 +14,14 @@
           <tr>
             <th scope="col">Alter</th>
             <th scope="col">Geschlecht</th>
-            <th scope="col">uuid</th>
+            <th scope="col">QR</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td scope="row">{{user.age}}</td>
             <td>{{user.sex}}</td>
-            <td>{{user.uuid}}</td>
+            <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=http://localhost:5000/wichteln/userview/{{user.uuid}}" style="width: 100px; height: 100px" alt="QR-Code"></td>
           </tr>
         </tbody>
       </table>

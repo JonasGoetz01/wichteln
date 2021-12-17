@@ -39,16 +39,6 @@ function base64_encode(file) {
  */
 exports.home = (req, res) => {
   connection.query('SELECT * FROM assignments', async(err, users) => {
-    const opts = {
-      errorCorrectionLevel: 'H',
-      type: 'image/png',
-      quality: 0.95,
-      margin: 1,
-      color: {
-       dark: '#208698',
-       light: '#FFF',
-      },
-     }
     if (!err) {
       for(let i = 0; i < users.length; i++){
         if((i + 1) < users.length){
@@ -58,10 +48,6 @@ exports.home = (req, res) => {
           users[i][0] = users[i];
           users[i][1] = users[0]
         }
-      }
-      for(var i = 0; i < users.length; i++){
-        console.log(await QRCode.toString('http://192.168.0.180:5000/wichteln/userview/' + users[i].uuid))
-        users[i].qr = await QRCode.toString('http://192.168.0.180:5000/wichteln/userview/' + users[i].uuid)
       }
       res.render('home', { users })
     }else{
