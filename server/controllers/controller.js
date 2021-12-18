@@ -253,7 +253,7 @@ exports.deleteuser = (req, res) => {
   connection.query('DELETE from users WHERE id = ?', [req.params.id], (err, rows) => {
     if (!err) {
       let removedUser = encodeURIComponent('User successeflly removed.');
-      res.redirect('/usermanagement/?removed=' + removedUser);
+      res.redirect('/wichteln/usermanagement');
     } else {
       console.log(err);
     }
