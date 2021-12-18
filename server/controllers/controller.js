@@ -9,6 +9,7 @@ const moment = require('moment');
 const { compileFunction } = require('vm');
 const asyncHandler = require('express-async-handler')
 const QRCode = require('qrcode')
+const open = require('open');
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -341,24 +342,12 @@ exports.makeAssignments = (req, res) => {
   });
 }
 
-exports.createpdf = (req, res) => {
-  (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto("http://localhost:5000/wichteln/", {
-      waitUntil: "networkidle2"
-    });
-    await page.setViewport({ width: 1080, height: 1920 });
-    await page.pdf({
-      path: "zuordnung.pdf",
-      format: "A1",
-      printBackground: true,
-      margin: {
-        left: '1px',
-        right: '1px'
-      }
-    });
-    await browser.close();
-  })();
-  res.render('home');
+exports.printZuordnung = (req, res) => {
+  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=https://de.wikipedia.org/wiki/Relativitätstheorie&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
+  res.redirect('/wichteln');
+}
+
+exports.printSchenker = (req, res) => {
+  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=https://de.wikipedia.org/wiki/Relativitätstheorie&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
+  res.redirect('/wichteln');
 }
