@@ -24,7 +24,6 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
     "express-handlebars": "^6.0.0",
-    "express-pdf": "^1.2.2",
     "fs-extra": "^10.0.0",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
