@@ -343,11 +343,11 @@ exports.makeAssignments = (req, res) => {
 }
 
 exports.printZuordnung = (req, res) => {
-  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=https://de.wikipedia.org/wiki/Relativitätstheorie&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
+  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=http://server.goetz01.de/wichteln&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
   res.redirect('/wichteln');
 }
 
 exports.printSchenker = (req, res) => {
-  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=https://de.wikipedia.org/wiki/Relativitätstheorie&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
+  open("http://api.pdflayer.com/api/convert?access_key=5006d0a2a9c5d4dfa5a94ea974cad5cf&document_url=http://server.goetz01.de/wichteln&test=1&margin_top=0&margin_left=0&margin_right=0&margin_bottom=0&document_name=zuteilung.pdf&text_encoding=utf-8")
   res.redirect('/wichteln');
 }
