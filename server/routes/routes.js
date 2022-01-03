@@ -4,7 +4,7 @@ const controller = require('../controllers/controller');
 
 router.get('/wichteln/', controller.home);
 
-router.get('/wichteln/presentScanner', controller.presentScanner);
+router.get('/wichteln/presentScanner/', controller.presentScanner);
 
 router.get('/wichteln/userview/:uuid', controller.userview);
 

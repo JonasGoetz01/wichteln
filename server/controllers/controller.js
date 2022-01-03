@@ -10,6 +10,7 @@ const { compileFunction } = require('vm');
 const asyncHandler = require('express-async-handler')
 const QRCode = require('qrcode')
 const open = require('open');
+const QrScanner = require('qr-scanner');
 
 // Connection Pool
 let connection = mysql.createConnection({
@@ -352,6 +353,8 @@ exports.printSchenker = (req, res) => {
   res.redirect('/wichteln');
 }
 
-exports.presentScanner = (req, res) => {
-
+exports.presentScanner = async(req, res) => {
+  const videoElem = document.getElementById("video");
+  const qrScanner = new QrScanner(videoElem, result => console.log('decoded qr code:', result));
+  res.render('presentScanner');
 }
